@@ -1,103 +1,263 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect, useRef, useState } from "react";
+import { Menu, ChevronDown, Facebook, Twitter, X } from "lucide-react";
+import CodePhilosophySection from "@/components/my_philosaphy";
+import EnhancedTechPortfolio from "@/components/skill_section";
+import ExperienceShowcase from "@/components/my_experience_section";
+import ContactMeSection from "@/components/contac_me";
+import Link from "next/link";
+import { MaskContainer } from "@/components/ui/mask_effect";
+import DeveloperJourneySection from "@/components/my_journey";
+import { MyProjects } from "@/components/project_page";
+import CopyrightFooter from "@/components/copy_right";
+import { FloatingDockDemo } from "@/components/ui/floating_doc";
+
+const words = ["CREATIVE", "INNOVATION", "DESIGN", "VISION", "ARTISTRY"];
+
+const menuItems = [
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
+  { label: "Blog", href: "#blog" },
+];
+
+export default function Portfolio() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [displayedText, setDisplayedText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    let typingSpeed = isDeleting ? 50 : 120;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting && charIndex < currentWord.length) {
+        setDisplayedText(currentWord.substring(0, charIndex + 1));
+        setCharIndex((prev) => prev + 1);
+      } else if (isDeleting && charIndex > 0) {
+        setDisplayedText(currentWord.substring(0, charIndex - 1));
+        setCharIndex((prev) => prev - 1);
+      } else {
+        if (!isDeleting) {
+          setTimeout(() => setIsDeleting(true), 1000);
+        } else {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, wordIndex]);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleMenuItemClick = (href: string) => {
+    setIsMenuOpen(false);
+    console.log(`Maps to ${href}`);
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* Background video - Fixed to not change */}
+      <video
+        ref={videoRef}
+        src="/16392049-uhd_3840_2160_24fps.mp4"
+        className="fixed inset-0 w-full h-full object-cover z-0"
+        loop
+        muted
+        playsInline
+        autoPlay
+      />
+      {/* Black overlay */}
+      <div className="fixed inset-0 bg-black/50 z-0" />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-5">
+        <div className="text-xl font-bold text-white">Ayyoob</div>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 cursor-pointer hover:text-gray-300 transition-colors">
+            <span className="text-sm">EN</span>
+            <ChevronDown className="w-3 h-3" />
+          </div>
+          <button
+            onClick={toggleMenu}
+            className="w-5 h-5 cursor-pointer hover:text-gray-300 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          
+          </button>
         </div>
+      </header>
+
+      {/* Side Menu - Fixed styling with solid black background */}
+      <div
+        className={`fixed top-0 right-0 h-screen w-80 z-50 bg-black/95 backdrop-blur-sm border-l border-white/10 transform transition-all duration-700 ease-out ${
+          isMenuOpen
+            ? "translate-x-0 opacity-100"
+            : "translate-x-full opacity-0"
+        }`}
+      >
+        <div className="p-8">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-2xl font-bold text-white">Menu</h3>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-all duration-300 hover:rotate-90"
+            >
+              <X className="w-4 h-4 text-white" />
+            </button>
+          </div>
+        </div>
+
+        <nav className="p-8">
+          {menuItems.map((item, index) => (
+            <div
+              key={item.label}
+              className={`transform transition-all duration-500 ease-out ${
+                isMenuOpen
+                  ? "translate-x-0 opacity-100"
+                  : "translate-x-8 opacity-0"
+              }`}
+              onClick={() => handleMenuItemClick("#about")}
+              style={{
+                transitionDelay: isMenuOpen ? `${index * 100 + 200}ms` : "0ms",
+              }}
+            >
+              <Link href={`${item.href}`}>
+                <button className="group w-full text-left py-4 px-6 rounded-xl mb-2 relative overflow-hidden hover:bg-white/10 transition-all duration-300">
+                  <div className="absolute left-0 top-0 h-full w-1 bg-white/30 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
+                  <span className="relative text-lg font-medium text-white group-hover:text-gray-300 transition-all duration-300 group-hover:translate-x-2">
+                    {item.label}
+                  </span>
+                  <div className="absolute right-6 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0 translate-x-2">
+                    <div className="w-2 h-2 border-r-2 border-b-2 border-white transform rotate-[-45deg]" />
+                  </div>
+                </button>
+              </Link>
+            </div>
+          ))}
+        </nav>
+
+        {/* Social & Button */}
+        <div className="absolute bottom-8 left-8 right-8">
+          <div className="flex items-center justify-center gap-6 mb-6">
+            {[Facebook, Twitter].map((Icon, index) => (
+              <div
+                key={index}
+                className={`transform transition-all duration-500 ease-out ${
+                  isMenuOpen
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-4 opacity-0"
+                }`}
+                style={{
+                  transitionDelay: isMenuOpen
+                    ? `${600 + index * 100}ms`
+                    : "0ms",
+                }}
+              >
+                <Icon className="w-6 h-6 cursor-pointer text-white/80 hover:text-white transition duration-300" />
+              </div>
+            ))}
+          </div>
+
+          <div
+            className={`transform transition-all duration-700 ease-out ${
+              isMenuOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-6 opacity-0"
+            }`}
+            style={{ transitionDelay: isMenuOpen ? "800ms" : "0ms" }}
+          >
+            <button className="w-full py-3 px-6 bg-white/20 text-white rounded-xl font-medium hover:shadow-xl hover:bg-white/30 transition-all duration-300">
+              Get In Touch
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Backdrop Overlay */}
+      <div
+        className={`fixed inset-0 z-40 transition-all duration-500 ${
+          isMenuOpen
+            ? "backdrop-blur-sm bg-black/20 opacity-100"
+            : "backdrop-blur-none bg-black/0 opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+      />
+
+      {/* Main Content - Updated layout with image */}
+      <main className="relative z-10 flex items-center justify-between min-h-screen px-6 md:px-8 pt-16">
+        {/* Left Content */}
+        <div className="flex-1 max-w-3xl">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-8 text-white">
+            <div className="flex items-center gap-4">
+              MAKE IT
+              <div className="w-16 md:w-24 h-1 bg-white" />
+            </div>
+            <div className="text-white min-h-[80px]">
+              {displayedText}
+              <span className="border-r-2 border-white animate-pulse ml-1" />
+            </div>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-12 leading-relaxed">
+            I'm Ayyoob, a software developer specializing in Flutter for
+            cross-platform mobile development, Go for backend services, and
+            Next.js for modern web applications. I create efficient, scalable
+            solutions that deliver exceptional user experiences across all
+            platforms.
+          </p>
+        </div>
+
+        {/* Right Side - Code Philosophy Text with Advanced Animations */}
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      {/* Footer */}
+      <footer className="relative z-10 flex items-center justify-between p-6 md:p-8 absolute bottom-0 left-0 right-0">
+        <button className="border border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 bg-transparent px-6 py-2 rounded-lg">
+          Let's Talk
+        </button>
+
+        <div className="flex items-center gap-4">
+          <Facebook className="w-6 h-6 cursor-pointer hover:text-white transition-colors" />
+          <Twitter className="w-6 h-6 cursor-pointer hover:text-white transition-colors" />
+        </div>
       </footer>
+
+      <DeveloperJourneySection />
+      <CodePhilosophySection />
+
+      <ExperienceShowcase />
+      <EnhancedTechPortfolio />
+      <MyProjects />
+      <ContactMeSection />
+      <CopyrightFooter/>
+      <FloatingDockDemo/>
+
+      <style jsx>{`
+        @keyframes scan {
+          0% {
+            transform: translateY(-50%) rotate(0deg);
+          }
+          100% {
+            transform: translateY(-50%) rotate(360deg);
+          }
+        }
+
+        .bg-gradient-radial {
+          background: radial-gradient(circle, var(--tw-gradient-stops));
+        }
+      `}</style>
     </div>
   );
 }
