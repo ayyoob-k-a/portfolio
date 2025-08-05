@@ -347,7 +347,7 @@ export default function ContactMeSection() {
                           Email
                         </p>
                         <p className="text-xl text-white/90 font-light group-hover:text-white transition-colors duration-300">
-                          contact@example.com
+                        ayyoobfouj@gmail.com
                         </p>
                       </div>
                     </div>
@@ -379,7 +379,7 @@ export default function ContactMeSection() {
                           Phone
                         </p>
                         <p className="text-xl text-white/90 font-light group-hover:text-white transition-colors duration-300">
-                          +1 (555) 123-4567
+                          +91 7306533275
                         </p>
                       </div>
                     </div>

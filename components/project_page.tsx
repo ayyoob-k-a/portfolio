@@ -8,96 +8,78 @@ export function MyProjects() {
 }
 export const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
+    title: "Ciyaaryahan",
+    link: "https://apps.apple.com/np/app/ciyaaryahan/id6702008680",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
+      "/rayhaan.png",
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
+    title: "Shaafi",
+    link: "https://apps.apple.com/us/app/shaafi/id6470298645",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+      "/shaafi.png",
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
+    title: "Almuqtadir",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.almuqtadirrewardz",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/rogue.png",
-  },
-
-  {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editorially.png",
-  },
-  {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editrix.png",
-  },
-  {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+      "/markazabuali.png",
   },
 
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
+    title: "koolmindz",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.koolmindz",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+      "/koolmindz.png",
   },
   {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
+    title: "markazabuali",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.koolmindz",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
+      "/markazabuali.png",
   },
   {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
+    title: "Bus3",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.bussthree&pcampaignid=web_share",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
-  },
-  {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
-  },
-  {
-    title: "Renderwork Studio",
-    link: "https://renderwork.studio",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
+      "/Screenshot 2025-08-05 101755.png",
   },
 
   {
-    title: "Creme Digital",
-    link: "https://cremedigital.com",
+    title: "Ciyaaryahan",
+    link: "https://apps.apple.com/np/app/ciyaaryahan/id6702008680",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
+      "/rayhaan.png",
   },
   {
-    title: "Golden Bells Academy",
-    link: "https://goldenbellsacademy.com",
+    title: "Shaafi",
+    link: "https://apps.apple.com/us/app/shaafi/id6470298645",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
+      "/shaafi.png",
   },
   {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
+    title: "Almuqtadir",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.almuqtadirrewardz",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
+      "/markazabuali.png",
+  },
+
+  {
+    title: "koolmindz",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.koolmindz",
+    thumbnail:
+      "/koolmindz.png",
   },
   {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
+    title: "markazabuali",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.koolmindz",
     thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
+      "/markazabuali.png",
+  },
+  {
+    title: "Bus3",
+    link: "https://play.google.com/store/apps/details?id=com.greenhone.bussthree&pcampaignid=web_share",
+    thumbnail:
+      "/Screenshot 2025-08-05 101755.png",
   },
 ];

@@ -34,7 +34,7 @@ export default function DeveloperJourneySection() {
     },
     { 
       name: "Go Lang", 
-      years: "2+",
+      years: "1+",
       icon: Code,
       description: "High-performance backend development language",
       details: [
@@ -49,7 +49,7 @@ export default function DeveloperJourneySection() {
     },
     { 
       name: "Next.js", 
-      years: "2+",
+      years: "1+",
       icon: Code,
       description: "React framework for production-grade web applications",
       details: [
