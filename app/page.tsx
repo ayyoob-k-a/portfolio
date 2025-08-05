@@ -23,7 +23,178 @@ const menuItems = [
   { label: "Blog", href: "#blog" },
 ];
 
-export default function Portfolio() {
+// Splash Screen Component
+const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
+  const [progress, setProgress] = useState(0);
+  const [loadingText, setLoadingText] = useState("Initializing...");
+  const [showLogo, setShowLogo] = useState(false);
+
+  useEffect(() => {
+    // Show logo after 500ms
+    const logoTimer = setTimeout(() => setShowLogo(true), 500);
+
+    const loadingStages = [
+      { progress: 20, text: "Loading assets...", delay: 800 },
+      { progress: 40, text: "Preparing components...", delay: 1200 },
+      { progress: 60, text: "Setting up animations...", delay: 1600 },
+      { progress: 80, text: "Optimizing performance...", delay: 2000 },
+      { progress: 100, text: "Almost ready...", delay: 2400 },
+    ];
+
+    loadingStages.forEach(({ progress, text, delay }) => {
+      setTimeout(() => {
+        setProgress(progress);
+        setLoadingText(text);
+      }, delay);
+    });
+
+    // Complete loading after 3 seconds
+    const completeTimer = setTimeout(() => {
+      onComplete();
+    }, 3000);
+
+    return () => {
+      clearTimeout(logoTimer);
+      clearTimeout(completeTimer);
+    };
+  }, [onComplete]);
+
+  return (
+    <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden">
+      {/* Background video with overlay */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover opacity-30"
+        src="/16392049-uhd_3840_2160_24fps.mp4"
+        loop
+        muted
+        playsInline
+        autoPlay
+      />
+      <div className="absolute inset-0 bg-black/70" />
+
+      {/* Animated background particles */}
+      <div className="absolute inset-0">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 text-center">
+        {/* Logo/Name with animation */}
+        <div
+          className={`transform transition-all duration-1000 ease-out ${
+            showLogo
+              ? "translate-y-0 opacity-100 scale-100"
+              : "translate-y-10 opacity-0 scale-95"
+          }`}
+        >
+          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-wider">
+            <span className="inline-block animate-pulse">A</span>
+            <span className="inline-block animate-pulse" style={{ animationDelay: "0.2s" }}>Y</span>
+            <span className="inline-block animate-pulse" style={{ animationDelay: "0.4s" }}>Y</span>
+            <span className="inline-block animate-pulse" style={{ animationDelay: "0.6s" }}>O</span>
+            <span className="inline-block animate-pulse" style={{ animationDelay: "0.8s" }}>O</span>
+            <span className="inline-block animate-pulse" style={{ animationDelay: "1.0s" }}>B</span>
+          </h1>
+          
+          {/* Subtitle */}
+          <div className="text-xl md:text-2xl text-gray-300 mb-12 font-light">
+            <span className="border-r-2 border-white animate-pulse">Flutter Developer</span>
+          </div>
+        </div>
+
+        {/* Loading progress */}
+        <div className="w-80 max-w-sm mx-auto">
+          {/* Progress bar */}
+          <div className="relative mb-6">
+            <div className="h-1 bg-white/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-white to-gray-300 rounded-full transition-all duration-500 ease-out relative"
+                style={{ width: `${progress}%` }}
+              >
+                {/* Animated glow effect */}
+                <div className="absolute top-0 right-0 w-4 h-full bg-white/50 rounded-full blur-sm animate-pulse" />
+              </div>
+            </div>
+            
+            {/* Progress percentage */}
+            <div className="flex justify-between mt-2 text-xs text-gray-400">
+              <span>Loading...</span>
+              <span>{progress}%</span>
+            </div>
+          </div>
+
+          {/* Loading text with typing effect */}
+          <div className="text-center">
+            <p className="text-gray-300 text-sm h-6 flex items-center justify-center">
+              <span className="inline-block mr-2">{loadingText}</span>
+              <span className="inline-block w-1 h-4 bg-white animate-pulse" />
+            </p>
+          </div>
+        </div>
+
+        {/* Spinning loader */}
+        <div className="mt-8 flex justify-center">
+          <div className="relative">
+            <div className="w-12 h-12 border-2 border-white/20 rounded-full animate-spin">
+              <div className="absolute top-0 left-0 w-3 h-3 bg-white rounded-full" />
+            </div>
+            {/* Outer ring */}
+            <div className="absolute inset-0 w-12 h-12 border border-white/10 rounded-full animate-pulse" />
+          </div>
+        </div>
+
+        {/* Tech stack indicators */}
+        <div className="mt-12 flex justify-center gap-6 text-xs text-gray-500">
+          <span className="px-2 py-1 border border-white/10 rounded">Flutter</span>
+          <span className="px-2 py-1 border border-white/10 rounded">Go</span>
+          <span className="px-2 py-1 border border-white/10 rounded">Next.js</span>
+        </div>
+      </div>
+
+      {/* Corner decorations */}
+      <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white/20" />
+      <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white/20" />
+      <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white/20" />
+      <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white/20" />
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideIn {
+          from {
+            width: 0;
+          }
+          to {
+            width: 100%;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+// Main Portfolio Component
+const MainPortfolio = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [displayedText, setDisplayedText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
@@ -85,7 +256,7 @@ export default function Portfolio() {
       <div className="fixed inset-0 bg-black/50 z-0" />
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-5">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-5 animate-fade-in">
         <div className="text-xl font-bold text-white">Ayyoob</div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 cursor-pointer hover:text-gray-300 transition-colors">
@@ -96,12 +267,12 @@ export default function Portfolio() {
             onClick={toggleMenu}
             className="w-5 h-5 cursor-pointer hover:text-gray-300 transition-colors"
           >
-          
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </header>
 
-      {/* Side Menu - Fixed styling with solid black background */}
+      {/* Side Menu */}
       <div
         className={`fixed top-0 right-0 h-screen w-80 z-50 bg-black/95 backdrop-blur-sm border-l border-white/10 transform transition-all duration-700 ease-out ${
           isMenuOpen
@@ -197,8 +368,8 @@ export default function Portfolio() {
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* Main Content - Updated layout with image */}
-      <main className="relative z-10 flex items-center justify-between min-h-screen px-6 md:px-8 pt-16">
+      {/* Main Content with entrance animation */}
+      <main className="relative z-10 flex items-center justify-between min-h-screen px-6 md:px-8 pt-16 animate-slide-up">
         {/* Left Content */}
         <div className="flex-1 max-w-3xl">
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-8 text-white">
@@ -219,11 +390,10 @@ export default function Portfolio() {
             platforms.
           </p>
         </div>
-
-        {/* Right Side - Code Philosophy Text with Advanced Animations */}
       </main>
+
       {/* Footer */}
-      <footer className="relative z-10 flex items-center justify-between p-6 md:p-8 absolute bottom-0 left-0 right-0">
+      <footer className="relative z-10 flex items-center justify-between p-6 md:p-8 absolute bottom-0 left-0 right-0 animate-fade-in">
         <button className="border border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 bg-transparent px-6 py-2 rounded-lg">
           Let's Talk
         </button>
@@ -234,17 +404,35 @@ export default function Portfolio() {
         </div>
       </footer>
 
-      <DeveloperJourneySection />
-      <CodePhilosophySection />
-
-      <ExperienceShowcase />
-      <EnhancedTechPortfolio />
-      <MyProjects />
-      <ContactMeSection />
-      <CopyrightFooter/>
-      <FloatingDockDemo/>
+      {/* Components with staggered animations */}
+      <div className="animate-fade-in-delayed">
+        <DeveloperJourneySection />
+        <CodePhilosophySection />
+        <ExperienceShowcase />
+        <EnhancedTechPortfolio />
+        <MyProjects />
+        <ContactMeSection />
+        <CopyrightFooter />
+        <FloatingDockDemo />
+      </div>
 
       <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         @keyframes scan {
           0% {
             transform: translateY(-50%) rotate(0deg);
@@ -257,7 +445,35 @@ export default function Portfolio() {
         .bg-gradient-radial {
           background: radial-gradient(circle, var(--tw-gradient-stops));
         }
+
+        .animate-fade-in {
+          animation: fadeIn 1s ease-out;
+        }
+
+        .animate-slide-up {
+          animation: slideUp 1s ease-out;
+        }
+
+        .animate-fade-in-delayed {
+          animation: fadeIn 1s ease-out 0.5s both;
+        }
       `}</style>
     </div>
+  );
+};
+
+// Main App Component with Splash Screen
+export default function Portfolio() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
+  return (
+    <>
+      {isLoading && <SplashScreen onComplete={handleLoadingComplete} />}
+      {!isLoading && <MainPortfolio />}
+    </>
   );
 }
