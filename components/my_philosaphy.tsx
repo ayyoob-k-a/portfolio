@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 export default function CodePhilosophySection() {
   const [scrollY, setScrollY] = useState(0);
@@ -123,7 +123,7 @@ export default function CodePhilosophySection() {
 
       lines.forEach((line, lineIndex) => {
         const timeout = setTimeout(() => {
-          setCodeText((prev) => {
+          setCodeText((prev: string) => {
             const existingLines = prev.split("\n");
             const newLines = [...existingLines];
             newLines[lineIndex] = line;
