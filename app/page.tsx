@@ -15,7 +15,7 @@ import { MyProjects } from "@/components/project_page";
 import CopyrightFooter from "@/components/copy_right";
 import { FloatingDockDemo } from "@/components/ui/floating_doc";
 import AdvancedAIAssistant from "@/components/ai";
-
+//
 const words = ["CREATIVE", "INNOVATION", "DESIGN", "VISION", "ARTISTRY"];
 
 const socialLinks = {
